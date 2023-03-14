@@ -1,0 +1,12 @@
+server:
+  port: 5000
+
+telegram-bot:
+  link: https://t.me/splendid_pdf_bot
+  username: splendid_pdf_bot
+  token: 6298854921:AAG8zcX6ASHA5uZlkHwma-I-B7tzgByKk6A
+  webHookPath: https://7aa7-178-204-53-148.eu.ngrok.io
+
+spring:
+  app:
+    name: splendid-pdf
