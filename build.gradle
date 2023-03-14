@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.2'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+ext {
+    set('telegrambots', '6.5.0')
+    set('junit', '5.8.1')
+    set('projectlombok', '1.18.24')
+    set('mockitoInlineVersion', '4.10.0')
+    set("mapstructVersion", "1.5.3.Final")
+}
+
+group 'com.github.splendidpdf'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit}"
+
+    // spring
+    implementation "org.telegram:telegrambots-spring-boot-starter:${telegrambots}"
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // implementation 'org.springframework:spring-jdbc'
+    // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // mapper
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+
+    // db
+    // runtimeOnly 'org.postgresql:postgresql'
+
+    // tests
+    testImplementation "org.mockito:mockito-inline:${mockitoInlineVersion}"
+    testCompileOnly "org.projectlombok:lombok:${projectlombok}"
+    testAnnotationProcessor "org.projectlombok:lombok:${projectlombok}"
+
+    // annotation processor
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+    useJUnitPlatform()
+}
