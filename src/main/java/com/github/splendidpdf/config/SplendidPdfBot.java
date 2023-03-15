@@ -1,6 +1,6 @@
 package com.github.splendidpdf.config;
 
-import com.github.splendidpdf.service.SimpleService;
+import com.github.splendidpdf.service.BotApiService;
 import lombok.Getter;
 import lombok.Setter;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
@@ -13,7 +13,7 @@ import org.telegram.telegrambots.starter.SpringWebhookBot;
 @Setter
 public class SplendidPdfBot extends SpringWebhookBot {
 
-    private final SimpleService simpleService;
+    private final BotApiService botApiService;
 
     private String botPath;
 
@@ -21,19 +21,19 @@ public class SplendidPdfBot extends SpringWebhookBot {
 
     private String token;
 
-    public SplendidPdfBot(SimpleService simpleService, DefaultBotOptions options, SetWebhook setWebhook) {
+    public SplendidPdfBot(BotApiService botApiService, DefaultBotOptions options, SetWebhook setWebhook) {
         super(options, setWebhook);
-        this.simpleService = simpleService;
+        this.botApiService = botApiService;
     }
 
-    public SplendidPdfBot(SimpleService simpleService, SetWebhook setWebhook) {
+    public SplendidPdfBot(BotApiService botApiService, SetWebhook setWebhook) {
         super(setWebhook);
-        this.simpleService = simpleService;
+        this.botApiService = botApiService;
     }
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        return simpleService.handleUpdate(update);
+        return botApiService.handleUpdate(update);
     }
 
     @Override

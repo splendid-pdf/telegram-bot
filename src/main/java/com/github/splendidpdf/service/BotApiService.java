@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-public class SimpleService {
+public class BotApiService {
 
     public BotApiMethod<?> handleUpdate(Update update) {
 
