@@ -31,7 +31,7 @@ public class SplendidPdfBotConfig {
     }
 
     @Bean
-    public SplendidPdfBot springWebhookBot(SetWebhook setWebhook, BotApiService botApiService) {
+    public SplendidPdfBot springWebhookBot(BotApiService botApiService, SetWebhook setWebhook) {
         SplendidPdfBot bot = new SplendidPdfBot(botApiService, setWebhook);
         bot.setToken(token);
         bot.setBotUsername(userName);
