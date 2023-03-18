@@ -1,6 +1,6 @@
 package com.github.splendidpdf.controller;
 
-import com.github.splendidpdf.config.SplendidPdfBot;
+import com.github.splendidpdf.bot.SplendidPdfBot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
