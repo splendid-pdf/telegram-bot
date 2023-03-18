@@ -1,9 +1,7 @@
 package com.github.splendidpdf.service;
 
 import com.github.splendidpdf.command.MainMenuCommand;
-import com.github.splendidpdf.keyboard.reply.LocationKeyboard;
-import com.github.splendidpdf.keyboard.reply.MainMenuKeyboard;
-import com.github.splendidpdf.keyboard.reply.PersonalMenuKeyboard;
+import com.github.splendidpdf.utils.keyboard.ReplyKeyboard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -14,18 +12,13 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 @RequiredArgsConstructor
 public class MessageService {
 
-    private final MainMenuKeyboard mainMenuKeyboard;
-
-    private final LocationKeyboard locationKeyboard;
-
-    private final PersonalMenuKeyboard personalMenuKeyboard;
+    private final ReplyKeyboard replyKeyboard;
 
     private final UserService userService;
 
     public SendMessage getAnswer(String text, String chatId) {
         return null;
     }
-
 
     public SendMessage mainMenuAnswer(MainMenuCommand mainMenuCommand, String chatId) {
         SendMessage sendMessage = new SendMessage();
@@ -35,7 +28,7 @@ public class MessageService {
             case MY_PROFILE -> sendMessage.setText("Server error");
             default -> sendMessage.setText("Server_error");
         }
-        sendMessage.setReplyMarkup(mainMenuKeyboard.getKeyboard());
+        sendMessage.setReplyMarkup(replyKeyboard.getInstance());
         sendMessage.setChatId(chatId);
         return sendMessage;
     }
@@ -44,12 +37,10 @@ public class MessageService {
         userService.updateLocation(message.getFrom(), message.getLocation());
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText("location was updated");
-        sendMessage.setReplyMarkup(mainMenuKeyboard.getKeyboard());
+        sendMessage.setReplyMarkup(replyKeyboard.getInstance());
         sendMessage.setChatId(message.getChatId());
         return sendMessage;
     }
-
-
 
     public BotApiMethod<?> registerAnswer(Message message) {
         SendMessage sendMessage = new SendMessage();
@@ -58,11 +49,11 @@ public class MessageService {
             userService.create(message.getFrom());
         } catch (Exception e) {
             sendMessage.setText("u already registered");
-            sendMessage.setReplyMarkup(mainMenuKeyboard.getKeyboard());
+            sendMessage.setReplyMarkup(replyKeyboard.getInstance());
             return sendMessage;
         }
         sendMessage.setText("Send to me your geolocation");
-        sendMessage.setReplyMarkup(locationKeyboard.getKeyboard());
+        sendMessage.setReplyMarkup(replyKeyboard.getInstance());
         return sendMessage;
     }
 }

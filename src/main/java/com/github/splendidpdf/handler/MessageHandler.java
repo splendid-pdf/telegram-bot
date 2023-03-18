@@ -15,7 +15,6 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class MessageHandler {
 
-
     private final CallbackService callbackService;
 
     private final MessageService messageService;
@@ -30,12 +29,12 @@ public class MessageHandler {
         if (message.hasLocation()) {
             return messageService.locationAnswer(message);
         }
-        if(message.hasText()) {
+        if (message.hasText()) {
             String text = message.getText();
-            if(text.equals("/start")) {
+            if (text.equals("/start")) {
                 return messageService.registerAnswer(message);
             }
-            if(isMainMenuCommand(message)) {
+            if (isMainMenuCommand(message)) {
                 MainMenuCommand mainMenuCommand = getMainMenuCommand(message);
                 return messageService.mainMenuAnswer(mainMenuCommand, chatId);
             }

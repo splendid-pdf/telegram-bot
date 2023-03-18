@@ -11,6 +11,4 @@ public interface BotUserRepository extends JpaRepository<BotUser, Long> {
 
     Optional<BotUser> findByTelegramId(Long telegramId);
 
-
-
 }

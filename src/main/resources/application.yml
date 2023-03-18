@@ -6,16 +6,16 @@ telegram-bot:
   link: https://t.me/splendid_pdf_bot
   username: splendid_pdf_bot
   token: 6298854921:AAG8zcX6ASHA5uZlkHwma-I-B7tzgByKk6A
-  webHookPath: https://eede-93-100-89-114.eu.ngrok.io
+  webHookPath: https://1fd9-178-204-53-148.eu.ngrok.io
 
 spring:
   app:
     name: splendid-pdf
 
   datasource:
-    url: jdbc:postgresql://localhost:32768/bot
+    url: jdbc:postgresql://localhost:5432/bot_db
     username: postgres
-    password: postgrespw
+    password: admin
     driver-class-name: org.postgresql.Driver
 
   jpa:

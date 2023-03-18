@@ -15,6 +15,4 @@ public enum Role {
     UX_UI,
     CEO,
     NONE
-
-
 }

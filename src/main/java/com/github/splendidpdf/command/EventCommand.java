@@ -1,27 +1,19 @@
 package com.github.splendidpdf.command;
 
-public enum EventCommand implements Command {
+import lombok.Getter;
 
-    EDIT_NAME() {
-        @Override
-        public String getName() {
-            return "Edit name";
-        }
-    },
+@Getter
+public enum EventCommand {
 
-    EDIT_DESCRIPTION() {
-        @Override
-        public String getName() {
-            return "Edit description";
-        }
-    },
+    EDIT_NAME("Edit name"),
 
-    EDIT_DATE() {
-        @Override
-        public String getName() {
-            return "Edit date";
-        }
+    EDIT_DESCRIPTION("Edit description"),
+
+    EDIT_DATE("Edit date");
+
+    private final String name;
+
+    EventCommand(String name) {
+        this.name = name;
     }
-
-
 }

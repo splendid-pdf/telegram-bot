@@ -1,28 +1,20 @@
 package com.github.splendidpdf.command;
 
-public enum ProfileCommand implements Command {
+import lombok.Getter;
 
-    REGISTER() {
-        @Override
-        public String getName() {
-            return "/start";
-        }
-    },
+@Getter
+public enum ProfileCommand {
 
-    EDIT_ROLE() {
-        @Override
-        public String getName() {
-            return "edit role";
-        }
-    },
+    REGISTER("/start"),
 
-    EDIT_LOCATION() {
-        @Override
-        public String getName() {
-            return "edit location";
-        }
-    },
+    EDIT_ROLE("edit role"),
 
+    EDIT_LOCATION("edit location");
 
+    private final String name;
+
+    ProfileCommand(String name) {
+        this.name = name;
+    }
 
 }

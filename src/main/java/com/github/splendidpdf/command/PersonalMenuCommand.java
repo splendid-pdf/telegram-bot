@@ -1,25 +1,19 @@
 package com.github.splendidpdf.command;
 
-public enum PersonalMenuCommand implements Command {
-    SHOW_PROFILE() {
-        @Override
-        public String getName() {
-            return "Show my profile";
-        }
-    },
+import lombok.Getter;
 
-    SHOW_GITHUB() {
-        @Override
-        public String getName() {
-            return "Show github";
-        }
-    },
+@Getter
+public enum PersonalMenuCommand {
 
-    EVENTS_CALENDAR {
-        @Override
-        public String getName() {
-            return "Events calendar";
-        }
+    SHOW_PROFILE("Show my profile"),
+
+    SHOW_GITHUB("Show github"),
+
+    EVENTS_CALENDAR("Events calendar");
+
+    private final String name;
+
+    PersonalMenuCommand(String name) {
+        this.name = name;
     }
-
 }

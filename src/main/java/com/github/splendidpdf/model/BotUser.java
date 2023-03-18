@@ -1,18 +1,17 @@
 package com.github.splendidpdf.model;
 
 
-import com.github.splendidpdf.command.Command;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "users")
 @Entity
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode(of = "telegramId")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
+@EqualsAndHashCode(of = "telegramId")
 public class BotUser {
 
     @Id

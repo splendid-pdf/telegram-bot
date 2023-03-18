@@ -36,7 +36,6 @@ public class SplendidPdfBot extends SpringWebhookBot {
         this.botPath = splendidPdfBotConfig.getWebHookPath();
     }
 
-
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         return messageHandler.handleUpdate(update);
