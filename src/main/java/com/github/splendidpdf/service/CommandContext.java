@@ -17,7 +17,7 @@ public class CommandContext {
 
     @Autowired
     public CommandContext(List<MainMenuCommand> menuMap) {
-        menuMap.forEach(menu -> this.getMenuMap().put(menu.getCommandSyntax(), menu));
+        menuMap.forEach(menu -> this.menuMap.put(menu.getCommandSyntax(), menu));
     }
 
     public MainMenuCommand retrieveMenu(String menuIdentifier) {

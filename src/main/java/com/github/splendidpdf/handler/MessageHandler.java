@@ -39,12 +39,14 @@ public class MessageHandler {
         outMsg.setChatId(chatId);
 
         if (message.hasLocation()) {
-            return messageService.locationAnswer(outMsg, message);
-        } else if (message.hasText()) {
+            return null;
+        }
+        if (message.hasText()) {
             String text = message.getText();
             if (text.equals("/start")) {
-                return messageService.registerAnswer(outMsg, message);
-            } else if (commandContext.getMenuMap().containsKey(text)) {
+                return messageService.getRegisterAnswer(outMsg, message);
+            }
+            if (commandContext.getMenuMap().containsKey(text)) {
                 outMsg.setText("Choose an action: ");
                 outMsg.setReplyMarkup(commandContext.retrieveMenu(text).execute());
             }

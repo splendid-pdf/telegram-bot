@@ -14,13 +14,13 @@ public class MessageService {
 
     private final UserService userService;
 
-    public BotApiMethod<?> locationAnswer(SendMessage sendMessage, Message message) {
-        userService.updateLocation(message.getFrom(), message.getLocation());
-        sendMessage.setText("location was updated");
-        return sendMessage;
-    }
+//    public BotApiMethod<?> getLocationAnswer(SendMessage sendMessage, Message message) {
+//        userService.updateLocation(message.getFrom(), message.getLocation());
+//        sendMessage.setText("location was updated");
+//        return sendMessage;
+//    }
 
-    public  BotApiMethod<?> registerAnswer(SendMessage sendMessage, Message message) {
+    public  BotApiMethod<?> getRegisterAnswer(SendMessage sendMessage, Message message) {
         try {
             userService.create(message.getFrom());
         } catch (Exception e) {
@@ -30,4 +30,5 @@ public class MessageService {
         }
         return sendMessage;
     }
+
 }
