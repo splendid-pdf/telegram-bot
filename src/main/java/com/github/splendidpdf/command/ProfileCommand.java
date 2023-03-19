@@ -1,8 +1,10 @@
 package com.github.splendidpdf.command;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public enum ProfileCommand {
 
     REGISTER("/start"),
@@ -12,9 +14,4 @@ public enum ProfileCommand {
     EDIT_LOCATION("edit location");
 
     private final String name;
-
-    ProfileCommand(String name) {
-        this.name = name;
-    }
-
 }

@@ -1,6 +1,6 @@
 package com.github.splendidpdf.utils.keyboard;
 
-import com.github.splendidpdf.command.MainMenuCommand;
+import com.github.splendidpdf.command.MainMenu;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -20,16 +20,15 @@ public class ReplyKeyboard {
         return initReplyKeyboardMarkup();
     }
 
-    public ReplyKeyboardMarkup initReplyKeyboardMarkup() {
+    private ReplyKeyboardMarkup initReplyKeyboardMarkup() {
         if (instance == null) {
             KeyboardRow firstRow = new KeyboardRow();
-            firstRow.add(new KeyboardButton(MainMenuCommand.EVENTS_CALENDAR.getName()));
-            firstRow.add(new KeyboardButton(MainMenuCommand.CREATE_EVENT.getName()));
+            firstRow.add(new KeyboardButton(MainMenu.EVENTS_CALENDAR.getName()));
+            firstRow.add(new KeyboardButton(MainMenu.CREATE_EVENT.getName()));
 
             KeyboardRow secondRow = new KeyboardRow();
-            secondRow.add(new KeyboardButton(MainMenuCommand.MY_PROFILE.getName()));
-            secondRow.add(new KeyboardButton(MainMenuCommand.PROJECT.getName()));
-            secondRow.add(new KeyboardButton(MainMenuCommand.INFO.getName()));
+            secondRow.add(new KeyboardButton(MainMenu.MY_PROFILE.getName()));
+            secondRow.add(new KeyboardButton(MainMenu.PROJECT.getName()));
 
             List<KeyboardRow> keyboard = new ArrayList<>();
             keyboard.add(firstRow);
