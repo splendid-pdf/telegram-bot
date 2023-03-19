@@ -16,7 +16,7 @@ public class PingScheduled {
     @Value("${schedule.ping.url}")
     private String pingURL;
 
-    @Scheduled(fixedDelayString =  "${schedule.ping.delay}")
+    @Scheduled(fixedDelayString = "${schedule.ping.delay}")
     public void ping() {
         try {
             URL url = new URL(pingURL);
