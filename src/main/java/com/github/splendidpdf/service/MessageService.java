@@ -1,11 +1,13 @@
 package com.github.splendidpdf.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MessageService {
@@ -22,10 +24,10 @@ public class MessageService {
         try {
             userService.create(message.getFrom());
         } catch (Exception e) {
+            log.error(e.getMessage());
             sendMessage.setText("u already registered");
             return sendMessage;
         }
-        sendMessage.setText("Send to me your geolocation");
         return sendMessage;
     }
 }

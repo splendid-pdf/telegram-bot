@@ -20,8 +20,8 @@ public class UserService {
 
     public void create(User telegramUser) throws Exception {
         Optional<BotUser> storedUser = botUserRepository.findByTelegramId(telegramUser.getId());
-        if(storedUser.isPresent()) {
-           throw new Exception("User already exist");
+        if (storedUser.isPresent()) {
+            throw new Exception("User already exist");
         }
         BotUser botUser = BotUser.builder()
                 .telegramId(telegramUser.getId())
@@ -35,13 +35,13 @@ public class UserService {
     public void updateLocation(User telegramUser, Location location) {
         Long telegramId = telegramUser.getId();
         BotUser botUser = botUserRepository.findByTelegramId(telegramId)
-                .orElseThrow(()-> new EntityNotFoundException("not found" + telegramId));
+                .orElseThrow(() -> new EntityNotFoundException("not found" + telegramId));
         botUser.setLongitude(location.getLongitude());
         botUser.setLatitude(location.getLatitude());
         botUserRepository.save(botUser);
     }
 
-    public void updateRole(User telegramUser){
+    public void updateRole(User telegramUser) {
 
     }
 }

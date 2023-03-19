@@ -45,7 +45,7 @@ public class MessageHandler {
             if (text.equals("/start")) {
                 return messageService.registerAnswer(outMsg, message);
             } else if (commandContext.getMenuMap().containsKey(text)) {
-                outMsg.setText("Выберите действие: ");
+                outMsg.setText("Choose an action: ");
                 outMsg.setReplyMarkup(commandContext.retrieveMenu(text).execute());
             }
         }
