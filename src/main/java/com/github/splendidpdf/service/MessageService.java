@@ -14,18 +14,13 @@ public class MessageService {
 
     private final UserService userService;
 
-    public BotApiMethod<?> locationAnswer(SendMessage sendMessage, Message message) {
-        userService.updateLocation(message.getFrom(), message.getLocation());
-        sendMessage.setText("location was updated");
-        return sendMessage;
-    }
-
     public  BotApiMethod<?> registerAnswer(SendMessage sendMessage, Message message) {
         try {
             userService.create(message.getFrom());
+            sendMessage.setText(message.getFrom().getUserName() + ", hi! Registration completed successfully!");
         } catch (Exception e) {
             log.error(e.getMessage());
-            sendMessage.setText("u already registered");
+            sendMessage.setText("You already registered...");
             return sendMessage;
         }
         return sendMessage;
