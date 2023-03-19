@@ -16,7 +16,7 @@ public class WebHookController {
     private final SplendidPdfBot splendidPdfBot;
 
     @PostMapping("/")
-    public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
-        return splendidPdfBot.onWebhookUpdateReceived(update);
+    public void onUpdateReceived(@RequestBody Update update) {
+        splendidPdfBot.onWebhookUpdateReceived1(update);
     }
 }

@@ -1,7 +1,9 @@
 package com.github.splendidpdf.handler;
 
 import com.github.splendidpdf.bot.SplendidPdfBot;
+import com.github.splendidpdf.model.Event;
 import com.github.splendidpdf.service.CommandContext;
+import com.github.splendidpdf.service.EventService;
 import com.github.splendidpdf.service.UserService;
 import com.github.splendidpdf.utils.keyboard.ReplyKeyboard;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,9 @@ public class MessageHandler {
 
     private final UserService userService;
 
-    public BotApiMethod<?> handleMessage(Update update) throws TelegramApiException {
+    private final EventService eventService;
+
+    public List<SendMessage>  handleMessage(Update update) {
         Message message = update.getMessage();
         String chatId = String.valueOf(message.getChatId());
 
@@ -41,17 +45,35 @@ public class MessageHandler {
         if (message.hasText()) {
             String text = message.getText();
             if (text.equals("/start")) {
-                return registerAnswer(outMsg, message);
+                return List.of(registerAnswer(outMsg, message));
             }
             if (commandContext.getMenuMap().containsKey(text)) {
-                outMsg.setText("Choose an action: ");
-                outMsg.setReplyMarkup(commandContext.retrieveMenu(text).execute());
+                List<Event> events = eventService.findAll();
+                List<SendMessage> sendMessages = events.stream()
+                        .map(event -> SendMessage
+                                .builder()
+                                .chatId(chatId)
+                                .replyMarkup(replyKeyboard.getInstance())
+                                .parseMode(ParseMode.HTML)
+                                .text(String.format("""
+                                        Event name:
+                                        %s
+                                        Event description:
+                                        %s
+                                        Event date: %s""",
+                                        event.getName(),
+                                        event.getDescription(),
+                                        event.getLocalDateTime()))
+                                .build())
+                        .toList();
+
+                return commandContext.getMenuMap().get(text).execute(sendMessages);
             }
         }
-        return outMsg;
+        return List.of(outMsg);
     }
 
-    private BotApiMethod<?> registerAnswer(SendMessage sendMessage, Message message) {
+    private SendMessage registerAnswer(SendMessage sendMessage, Message message) {
         try {
             userService.create(message.getFrom());
             sendMessage.setText(message.getFrom().getUserName() + ", hi! Registration completed successfully!");
