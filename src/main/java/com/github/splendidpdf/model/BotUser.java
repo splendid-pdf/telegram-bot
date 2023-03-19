@@ -4,6 +4,8 @@ package com.github.splendidpdf.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -27,13 +29,21 @@ public class BotUser {
 
     private Double Latitude;
 
-//    @Enumerated(EnumType.STRING)
-//    private Command lastCommand;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Enumerated(EnumType.STRING)
     private TimeZone timeZone;
 
+    @OneToMany(mappedBy = "botUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Event> events;
+
+    public void addEvent(Event event) {
+        event.setBotUser(this);
+        events.add(event);
+    }
+
+    public void removeEvent(Event event) {
+        events.remove(event);
+    }
 }

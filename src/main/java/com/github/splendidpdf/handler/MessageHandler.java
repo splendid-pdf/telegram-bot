@@ -1,7 +1,8 @@
 package com.github.splendidpdf.handler;
 
+import com.github.splendidpdf.bot.SplendidPdfBot;
 import com.github.splendidpdf.service.CommandContext;
-import com.github.splendidpdf.service.MessageService;
+import com.github.splendidpdf.service.UserService;
 import com.github.splendidpdf.utils.keyboard.ReplyKeyboard;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,11 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -22,14 +27,9 @@ public class MessageHandler {
 
     private final ReplyKeyboard replyKeyboard;
 
-    private final MessageService messageService;
+    private final UserService userService;
 
-    public BotApiMethod<?> handleUpdate(Update update) {
-        log.info("Received a request from a user {}, message {}", update.getMessage().getChatId(), update.getMessage().getText());
-        return update.hasCallbackQuery() ? handleCallback(update) : handleMessage(update);
-    }
-
-    private BotApiMethod<?> handleMessage(Update update) {
+    public BotApiMethod<?> handleMessage(Update update) throws TelegramApiException {
         Message message = update.getMessage();
         String chatId = String.valueOf(message.getChatId());
 
@@ -38,13 +38,12 @@ public class MessageHandler {
         outMsg.setParseMode(ParseMode.HTML);
         outMsg.setChatId(chatId);
 
-        if (message.hasLocation()) {
-            return messageService.locationAnswer(outMsg, message);
-        } else if (message.hasText()) {
+        if (message.hasText()) {
             String text = message.getText();
             if (text.equals("/start")) {
-                return messageService.registerAnswer(outMsg, message);
-            } else if (commandContext.getMenuMap().containsKey(text)) {
+                return registerAnswer(outMsg, message);
+            }
+            if (commandContext.getMenuMap().containsKey(text)) {
                 outMsg.setText("Choose an action: ");
                 outMsg.setReplyMarkup(commandContext.retrieveMenu(text).execute());
             }
@@ -52,8 +51,15 @@ public class MessageHandler {
         return outMsg;
     }
 
-    private BotApiMethod<?> handleCallback(Update update) {
-        return null;
+    private BotApiMethod<?> registerAnswer(SendMessage sendMessage, Message message) {
+        try {
+            userService.create(message.getFrom());
+            sendMessage.setText(message.getFrom().getUserName() + ", hi! Registration completed successfully!");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            sendMessage.setText("You already registered...");
+            return sendMessage;
+        }
+        return sendMessage;
     }
-
 }
