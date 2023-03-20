@@ -1,6 +1,5 @@
 package com.github.splendidpdf.handler;
 
-import com.github.splendidpdf.bot.SplendidPdfBot;
 import com.github.splendidpdf.model.Event;
 import com.github.splendidpdf.service.CommandContext;
 import com.github.splendidpdf.service.EventService;
@@ -10,13 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
 
@@ -49,26 +45,10 @@ public class MessageHandler {
             }
             if (commandContext.getMenuMap().containsKey(text)) {
                 List<Event> events = eventService.findAll();
-                List<SendMessage> sendMessages = events.stream()
-                        .map(event -> SendMessage
-                                .builder()
-                                .chatId(chatId)
-                                .replyMarkup(replyKeyboard.getInstance())
-                                .parseMode(ParseMode.HTML)
-                                .text(String.format("""
-                                        Event name:
-                                        %s
-                                        Event description:
-                                        %s
-                                        Event date: %s""",
-                                        event.getName(),
-                                        event.getDescription(),
-                                        event.getLocalDateTime()))
-                                .build())
+                return events.stream()
+                        .map(event -> commandContext.getMenuMap().get(text).execute(chatId, event))
                         .toList();
-
-                return commandContext.getMenuMap().get(text).execute(sendMessages);
-            }
+            } 
         }
         return List.of(outMsg);
     }

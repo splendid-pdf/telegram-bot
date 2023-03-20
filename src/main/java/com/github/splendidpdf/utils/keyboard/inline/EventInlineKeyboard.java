@@ -14,21 +14,15 @@ import java.util.List;
 @Component
 public class EventInlineKeyboard {
 
-    private final InlineKeyboardMarkup inlineKeyboardMarkup;
-
-    public EventInlineKeyboard() {
-        inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        inlineKeyboardMarkup.setKeyboard(initProjectInlineKeyboard());
-    }
-
-    private List<List<InlineKeyboardButton>> initProjectInlineKeyboard() {
+    public InlineKeyboardMarkup createInlineKeyboardMarkup(Long eventId) {
+        String buttonName = CallbackDataAndBotState.ADD_TO_FAVORITE.getName();
+        String buttonCallbackData = String.format(CallbackDataAndBotState.ADD_TO_FAVORITE.getSyntax(), eventId);
         List<List<InlineKeyboardButton>> profileMenuCommand = new ArrayList<>();
-        profileMenuCommand.add(InlineKeyboard.getButton(
-                CallbackDataAndBotState.ADD_TO_FAVORITE.getName(),
-                CallbackDataAndBotState.ADD_TO_FAVORITE.getSyntax())
-        );
-
-        return profileMenuCommand;
+        profileMenuCommand.add(InlineKeyboard.getButton(buttonName, buttonCallbackData));
+        return InlineKeyboardMarkup
+                .builder()
+                .keyboard(profileMenuCommand)
+                .build();
     }
 
 }

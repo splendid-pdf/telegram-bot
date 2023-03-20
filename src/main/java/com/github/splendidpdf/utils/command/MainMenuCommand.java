@@ -8,5 +8,5 @@ public interface MainMenuCommand {
 
     String getCommandSyntax();
 
-    List<SendMessage> execute(List<SendMessage> sendMessages);
+    SendMessage execute(String chatId, Object object);
 }

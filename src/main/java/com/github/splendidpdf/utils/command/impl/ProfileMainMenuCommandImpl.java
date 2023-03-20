@@ -21,9 +21,8 @@ public class ProfileMainMenuCommandImpl implements MainMenuCommand {
     }
 
     @Override
-    public List<SendMessage> execute(List<SendMessage> sendMessages) {
-//        sendMessages.setText("Show my profile");
-//        sendMessages.setReplyMarkup(profileInlineKeyboard.getInlineKeyboardMarkup());
-        return sendMessages;
+    public SendMessage execute(String chatId, Object object) {
+        return null;
+
     }
 }

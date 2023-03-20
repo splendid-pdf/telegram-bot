@@ -53,4 +53,9 @@ public class UserService {
         botUser.setRole(role);
         botUserRepository.save(botUser);
     }
+
+    public BotUser findByTelegramId(Long telegramId) {
+        return botUserRepository.findByTelegramId(telegramId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found" + telegramId));
+    }
 }

@@ -20,7 +20,8 @@ public class ProjectMainMenuCommandImpl implements MainMenuCommand {
     }
 
     @Override
-    public List<SendMessage> execute(List<SendMessage> sendMessages) {
-        return sendMessages;
+    public SendMessage execute(String chatId, Object object) {
+        return null;
+
     }
 }

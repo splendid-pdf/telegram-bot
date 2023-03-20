@@ -16,9 +16,7 @@ public class CreateEventMainMenuCommandImpl implements MainMenuCommand {
     }
 
     @Override
-    public List<SendMessage> execute(List<SendMessage> sendMessages) {
-//        sendMessages.setText("Show create event window");
-
-        return sendMessages;
+    public SendMessage execute(String chatId, Object object) {
+        return null;
     }
 }
