@@ -1,10 +1,12 @@
 package com.github.splendidpdf.utils.command;
 
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
+import java.util.List;
 
 public interface MainMenuCommand {
 
     String getCommandSyntax();
 
-    InlineKeyboardMarkup execute();
+    SendMessage execute(String chatId, Object object);
 }

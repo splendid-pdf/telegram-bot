@@ -5,7 +5,9 @@ import com.github.splendidpdf.utils.command.MainMenuCommand;
 import com.github.splendidpdf.utils.keyboard.inline.ProfileInlineKeyboard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -19,7 +21,8 @@ public class ProfileMainMenuCommandImpl implements MainMenuCommand {
     }
 
     @Override
-    public InlineKeyboardMarkup execute() {
-        return profileInlineKeyboard.getInlineKeyboardMarkup();
+    public SendMessage execute(String chatId, Object object) {
+        return null;
+
     }
 }

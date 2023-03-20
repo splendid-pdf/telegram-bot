@@ -17,6 +17,8 @@ public enum CallbackDataAndBotState {
 
     PROFILE_EVENTS("My events", "/profile_events"),
 
+    ADD_TO_FAVORITE("add to favorite", "/add_to_favorite_id=%s"),
+
     PROFILE_ROLE("Role", "/profile_role"),
 
     PROFILE_LOCATION("Location", "/profile_location"),
